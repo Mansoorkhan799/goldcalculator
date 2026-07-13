@@ -39,6 +39,7 @@ export default function HomePage() {
           alt="Gold bars and jewelry on stone — gold calculator visual"
           fill
           priority
+          loading="eager"
           sizes="100vw"
           className="object-cover object-[center_35%]"
         />
