@@ -17,7 +17,7 @@ const body = Figtree({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://example.com"),
+  metadataBase: new URL("https://goldcalculatoruk.net"),
   title: {
     default: "Gold Calculator — Live Scrap Gold Value",
     template: "%s · Gold Calculator",

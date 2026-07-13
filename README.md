@@ -22,7 +22,10 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Domain & content
 
-Update `metadataBase` in `src/app/layout.tsx`, plus URLs in `src/app/sitemap.ts` and `src/app/robots.ts`, when you have a domain. Replace placeholder copy on About / FAQ as needed.
+Production domain: [https://goldcalculatoruk.net](https://goldcalculatoruk.net)
+
+Sitemap for Search Console: `https://goldcalculatoruk.net/sitemap.xml`  
+Robots: `https://goldcalculatoruk.net/robots.txt`
 
 ## Stack
 

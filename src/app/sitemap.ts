@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { SEO_PAGES } from "@/lib/seo-pages";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://example.com";
+  const base = "https://goldcalculatoruk.net";
   const now = new Date();
 
   return [
