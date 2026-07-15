@@ -1,12 +1,21 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { GoldCalculator } from "@/components/GoldCalculator";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { JsonLd } from "@/components/JsonLd";
+import { ReviewSection } from "@/components/ReviewSection";
 import {
   SEO_PAGES,
   getSeoPageBySlugs,
   type SeoPage,
 } from "@/lib/seo-pages";
 import type { WeightUnit } from "@/lib/gold";
+import {
+  absoluteUrl,
+  buildFaqSchema,
+  buildWebApplicationSchema,
+  buildWebPageSchema,
+} from "@/lib/schema";
 
 export function seoMetadata(page: SeoPage): Metadata {
   return {
@@ -20,6 +29,23 @@ export function seoMetadata(page: SeoPage): Metadata {
       title: page.title,
       description: page.description,
       type: "website",
+      url: absoluteUrl(`/${page.slug}`),
+      siteName: "Gold Calculator",
+      images: [
+        {
+          url: "/images/hero-gold.jpg",
+          width: 1920,
+          height: 1080,
+          alt: `${page.h1} — Gold Calculator`,
+          type: "image/jpeg",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: page.title,
+      description: page.description,
+      images: ["/images/hero-gold.jpg"],
     },
     alternates: {
       canonical: `/${page.slug}`,
@@ -51,38 +77,32 @@ function RelatedTools({ slugs, current }: { slugs: string[]; current: string }) 
 }
 
 export function KeywordToolPage({ page }: { page: SeoPage }) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: page.h1,
-    applicationCategory: "FinanceApplication",
-    operatingSystem: "Any",
-    description: page.description,
-    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  };
-
-  const faqLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: page.faqs.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
-  };
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      <JsonLd
+        data={[
+          buildWebApplicationSchema({
+            name: page.h1,
+            description: page.description,
+            url: absoluteUrl(`/${page.slug}`),
+          }),
+          buildWebPageSchema({
+            name: page.title,
+            description: page.description,
+            path: `/${page.slug}`,
+          }),
+          buildFaqSchema(page.faqs),
+        ]}
       />
 
-      <section className="site-shell px-4 pb-8 pt-10 sm:px-6 sm:pt-12">
+      <Breadcrumbs
+        items={[
+          { name: "Home", path: "/" },
+          { name: page.h1, path: `/${page.slug}` },
+        ]}
+      />
+
+      <section className="site-shell px-4 pb-8 pt-6 sm:px-6 sm:pt-8">
         <div className="mx-auto max-w-6xl">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold-deep">
             {page.eyebrow}
@@ -142,6 +162,7 @@ export function KeywordToolPage({ page }: { page: SeoPage }) {
         </section>
       </div>
 
+      <ReviewSection />
       <RelatedTools slugs={page.related} current={page.slug} />
 
       <section className="site-shell mx-auto max-w-6xl px-4 pb-16 sm:px-6">

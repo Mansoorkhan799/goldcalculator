@@ -45,15 +45,30 @@ export const metadata: Metadata = {
     description:
       "Estimate scrap gold melt value instantly with live troy-ounce pricing.",
     type: "website",
-    locale: "en_US",
+    locale: "en_GB",
+    url: "https://goldcalculatoruk.net",
+    siteName: "Gold Calculator",
+    images: [
+      {
+        url: "/images/hero-gold.jpg",
+        width: 1920,
+        height: 1080,
+        alt: "Gold Calculator — live scrap gold valuation",
+        type: "image/jpeg",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Gold Calculator — Live Scrap Gold Value",
     description:
       "Estimate scrap gold melt value instantly with live troy-ounce pricing.",
+    images: ["/images/hero-gold.jpg"],
   },
   robots: { index: true, follow: true },
+  other: {
+    "og:image:alt": "Gold Calculator — live scrap gold valuation",
+  },
 };
 
 export default function RootLayout({

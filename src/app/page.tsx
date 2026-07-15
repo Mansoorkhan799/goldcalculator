@@ -5,29 +5,30 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { Faq } from "@/components/Faq";
 import { HomeContent } from "@/components/HomeContent";
 import { KeywordHub } from "@/components/KeywordHub";
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  name: "Gold Calculator",
-  alternateName: ["Gold Calc", "GoldCalc", "Goldcalculator"],
-  applicationCategory: "FinanceApplication",
-  operatingSystem: "Any",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD",
-  },
-  description:
-    "Free gold calculator and scrap gold calculator with live gold prices. Estimate gold melt value, gold price per gram, and scrap gold prices by karat.",
-};
+import { JsonLd } from "@/components/JsonLd";
+import { ReviewSection } from "@/components/ReviewSection";
+import {
+  buildBreadcrumbSchema,
+  buildOrganizationSchema,
+  buildWebApplicationSchema,
+  buildWebPageSchema,
+} from "@/lib/schema";
 
 export default function HomePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      <JsonLd
+        data={[
+          buildOrganizationSchema(),
+          buildWebApplicationSchema(),
+          buildWebPageSchema({
+            name: "Gold Calculator — Live Scrap Gold Value",
+            description:
+              "Free gold calculator and scrap gold calculator with live gold prices.",
+            path: "/",
+          }),
+          buildBreadcrumbSchema([{ name: "Home", path: "/" }]),
+        ]}
       />
 
       <section
@@ -81,6 +82,7 @@ export default function HomePage() {
         />
       </div>
       <HowItWorks />
+      <ReviewSection />
       <KeywordHub />
       <HomeContent />
       <Faq />
